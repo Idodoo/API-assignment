@@ -29,7 +29,7 @@ def users(search: Optional[str] = None):
     
      return usr
     
-    if search in usr :
+    elif search in usr :
         return {search: usr[search]}
 
     elif search not in usr :
