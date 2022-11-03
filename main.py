@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Optional
+from typing import Optional, Union
 import os
 import json
 
@@ -17,21 +17,25 @@ def read_root():
 
 @app.get("/getNSPData")
 def users(search: Optional[str] = None):
+    
     f = open(db_path, 'r')
     usr = json.load(f)
+    print(search)
+    
     f.close()
-    name = search
+    
+
+    if search == None:    
+    
+     return usr
+    
+    if search in usr :
+        return {search: usr[search]}
+
+    elif search not in usr :
+        raise HTTPException(status_code = 404, detail = "User Not Found")
 
     
-    
-    if name in usr :
-        return {
-             name: usr[name]      
-        }
-    # if name not in  usr :
-    #     raise HTTPException(status_code = 404, detail =
-    #         "User Not Found"
-    # )
-    return usr 
+
 
     
