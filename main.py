@@ -20,7 +20,7 @@ def users(search: Optional[str] = None):
     
     f = open(db_path, 'r')
     usr = json.load(f)
-    print(search)
+    
     
     f.close()
     
