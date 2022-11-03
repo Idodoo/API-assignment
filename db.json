@@ -1,0 +1,19 @@
+{
+    "Ivan":{
+        "fullname": "Ivan Dodoo",
+         "age": 24, 
+         "dob": "20 May,1998",
+         "complexion": "Chocolate",
+         "martial status": "Single"
+    },
+    "Karen":{
+        "occupation": "Software Engineering",
+        "gender": "female",
+        "complexion": "Chocolate"
+    },
+    "Dennis":{
+        "height": 1.9,
+        "weight": 82
+    }
+
+}
