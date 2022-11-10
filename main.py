@@ -1,9 +1,12 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, Union
 import os
 import json
 import re 
+import pandas
+import shutil
+
 
 db_path = "./db.json"
 f =  open(db_path, "r")
@@ -27,10 +30,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# default 
 @app.get("/")
 def read_root():
     return {"Welcome": "welcome"}
 
+# Route to get NSP Data with query par option
 @app.get("/getNSPData")
 def users(search: Optional[str] = None):
     
@@ -51,6 +56,7 @@ def users(search: Optional[str] = None):
     elif search not in usr :
         raise HTTPException(status_code = 404, detail = "User Not Found")
 
+# Route to get a particular  NSP Data
 @app.get("/NSPData/{str}")
 def singleusr(str:str):
     f = open(db_path, 'r')
@@ -64,13 +70,40 @@ def singleusr(str:str):
         raise HTTPException(status_code = 404, detail = "User Not Found")
             
 
-
+# Route to get Search Info
 @app.get("/Info")
 def info():
     fs = open(db_info, 'r')
     google = json.load(fs)
     f.close()
     return google
+
+
+#  Route to upload file and convert to json file
+
+@app.post("/file")
+async def get_file(file: UploadFile = File()):
+    with open('./students.xlsx', "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        excel_data_df = pandas.read_excel('./students.xlsx', sheet_name='Sheet1')
+        json_str = excel_data_df.to_json(orient="records")
+        jsonFile = open("./data.json", "w")
+        jsonFile.write(json_str)
+        jsonFile.close()
+        stds=  open("./data.json", "r")
+        data = json.load(stds)
+        f.close()
+        return data
+
+
+
+    
+
+
+   
+
+
+
     
 @app.get("/Info/{search}")
 def find(search:str):
