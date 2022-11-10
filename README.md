@@ -21,7 +21,7 @@ pip install -r requirements.txt
 3. Run the following code in terminal to run your local FastAPI server:
 uvicorn main:app
 
-4. Head to localhost:8000/docs in your browser to test the Implementation of this API endpoints and documentation in an interactive SWAGGER UI API Documentation playground.
+4. Head to http://127.0.0.1:8000/docs in your browser to test the Implementation of this API endpoints and documentation in an interactive SWAGGER UI API Documentation playground.
 
 
 
