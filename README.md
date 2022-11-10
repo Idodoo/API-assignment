@@ -3,9 +3,9 @@
 
 
 Features
-. Using a GET method to return a JSON object 
+1. Using a GET method to return a JSON object 
 
-. Uploading a file(excel) then convert content of file to JSON File 
+2. Convert File(Excel) to JSON via POST 
 
 Project Setup
 
